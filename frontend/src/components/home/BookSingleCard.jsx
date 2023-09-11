@@ -3,9 +3,13 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { BsInfoCircle } from "react-icons/bs";
 import { MdOutlineDelete } from "react-icons/md";
 import { PiBookOpenTextLight } from "react-icons/pi";
-import { BiUserCircle } from "react-icons/bi";
+import { BiUserCircle, BiShow } from "react-icons/bi";
+import { useState } from "react";
+import BookModal from "./BookModal";
 
-const BooksSingleCard = ({ book }) => {
+const BookSingleCard = ({ book }) => {
+  const [showModal, setsetshowModal] = useState(false);
+
   return (
     <div className="border-2 border-gray-500 rounded-lg px-4 py-2 m-4 relative hover:shadow-xl">
       <h2 className="absolute top-1 right-2 px-4 py-1 bg-red-300 rounded-lg">
@@ -21,6 +25,10 @@ const BooksSingleCard = ({ book }) => {
         <h2 className="my-1">{book.author}</h2>
       </div>
       <div className="flex justify-between items-center gap-x-2 p-4">
+        <BiShow
+          className="text-3xl text-blue-800 hover:text-black cursor-pointer"
+          onClick={() => setsetshowModal(true)}
+        ></BiShow>
         <Link to={`/books/details/${book._id}`}>
           <BsInfoCircle className="text-2xl text-green-800 hover:text-black"></BsInfoCircle>
         </Link>
@@ -31,8 +39,14 @@ const BooksSingleCard = ({ book }) => {
           <MdOutlineDelete className="text-2xl text-red-600 hover:text-black"></MdOutlineDelete>
         </Link>
       </div>
+      {showModal && (
+        <BookModal
+          book={book}
+          onClose={() => setsetshowModal(false)}
+        ></BookModal>
+      )}
     </div>
   );
 };
 
-export default BooksSingleCard;
+export default BookSingleCard;
